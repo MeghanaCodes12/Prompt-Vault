@@ -84,7 +84,7 @@ PromptVault/
 | |-- helpers.py CRUD operations
 | |-- search.py Search and filter logic
 |
-|-- assets/ Images and static files
+|-- assets/ logo file
 
 ---
 
