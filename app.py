@@ -4,6 +4,7 @@ sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 import streamlit as st
 from database.db import init_db
+from utils.helpers import init_default_categories
 
 st.set_page_config(
     page_title="PromptVault",
@@ -12,6 +13,7 @@ st.set_page_config(
 )
 
 init_db()
+init_default_categories()
 
 import importlib.util
 
@@ -31,7 +33,8 @@ page = st.sidebar.radio("Navigate", [
     "📊 Dashboard",
     "➕ Add Prompt",
     "📚 View Prompts",
-    "📈 Analytics"
+    "📈 Analytics",
+    "🗂️ Manage Categories"
 ])
 
 st.sidebar.divider()
@@ -45,5 +48,5 @@ elif page == "📚 View Prompts":
     load_view(os.path.join(BASE, "views", "view_prompts.py")).show()
 elif page == "📈 Analytics":
     load_view(os.path.join(BASE, "views", "analytics.py")).show()
-
-    
+elif page == "🗂️ Manage Categories":
+    load_view(os.path.join(BASE, "views", "manage_categories.py")).show()
