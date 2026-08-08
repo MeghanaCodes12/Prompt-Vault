@@ -1,15 +1,21 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import streamlit as st
 from utils.search import search_prompts
-from utils.helpers import delete_prompt, toggle_favorite, update_prompt
+from utils.helpers import delete_prompt, toggle_favorite, update_prompt, get_category_names
 
 def show():
     st.title("📚 Prompt Library")
+
+    categories = ["All"] + get_category_names()
 
     col1, col2, col3, col4 = st.columns([3,1,1,1])
     with col1:
         query = st.text_input("🔍 Search", placeholder="Search by title, tag, or keyword...")
     with col2:
-        category = st.selectbox("Category", ["All","Study","Coding","Research","Resume","Productivity"])
+        category = st.selectbox("Category", categories)
     with col3:
         difficulty = st.selectbox("Difficulty", ["All","Beginner","Intermediate","Advanced"])
     with col4:
