@@ -3,19 +3,24 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import streamlit as st
-from utils.helpers import add_prompt as save_prompt
+from utils.helpers import add_prompt as save_prompt, get_category_names
 
 def show():
     st.title("➕ Add New Prompt")
+
+    # Load categories dynamically from database
+    category_names = get_category_names()
+
+    if not category_names:
+        st.warning("No categories found. Please add categories first from the Manage Categories page.")
+        return
 
     with st.form("add_form", clear_on_submit=True):
         title      = st.text_input("Prompt Title *")
         col1, col2 = st.columns(2)
 
         with col1:
-            category = st.selectbox("Category", [
-                "Study", "Coding", "Research", "Resume", "Productivity"
-            ])
+            category = st.selectbox("Category", category_names)
         with col2:
             difficulty = st.selectbox("Difficulty", [
                 "Beginner", "Intermediate", "Advanced"
